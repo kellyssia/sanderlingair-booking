@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanderling Air · Book Your Next Trip</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Sanderling Air — brand blue palette inspired by reference */
+    --brand:         #1976D2;
+    --brand-dark:    #0D5BB0;
+    --brand-darker:  #0A4A93;
+    --brand-light:   #E3F0FB;
+    --ink:           #1A2332;
+    --text:          #2C3A48;
+    --grey:          #5B6878;
+    --muted:         #8C95A0;
+    --line:          #E1E7EE;
+    --line-soft:     #EEF2F6;
+    --bg:            #FFFFFF;
+    --bg-soft:       #F7F9FC;
+    --card:          #FFFFFF;
+    --success:       #2E7D32;
+    --warning:       #ED6C02;
+
+    --shadow-sm:     0 1px 2px rgba(13,91,176,0.06);
+    --shadow:        0 4px 14px rgba(13,91,176,0.08);
+    --shadow-md:     0 10px 28px rgba(13,91,176,0.12);
+    --shadow-lg:     0 24px 50px rgba(13,91,176,0.18);
+
+    --radius:        8px;
+    --radius-lg:     14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ================ TOP NAV ================ */
+  .nav {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    padding: 18px 40px;
+    gap: 40px;
+  }
+  .nav-logo {
+    background: #fff;
+    padding: 10px 16px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: var(--shadow-sm);
+    min-width: 150px;
+    min-height: 56px;
+  }
+  .nav-logo img {
+    height: 36px;
+    width: auto;
+  }
+  .nav-logo .fallback {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .nav-logo .fallback-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--brand-darker);
+    letter-spacing: -0.3px;
+  }
+  .nav-logo .fallback-sub {
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--brand);
+    margin-top: 3px;
+    font-weight: 500;
+  }
+  .nav-logo .triangle {
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 14px 0 14px 22px;
+    border-color: transparent transparent transparent var(--brand);
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    flex: 1;
+  }
+  .nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+  }
+  .nav-link.active { border-bottom-color: #fff; }
+  .nav-link:hover { border-bottom-color: rgba(255,255,255,0.6); }
+  .nav-link .caret {
+    font-size: 9px;
+    opacity: 0.85;
+  }
+  .nav-login {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .nav-login:hover { text-decoration: underline; }
+
+  /* ================ HERO ================ */
+  .hero {
+    position: relative;
+    height: 460px;
+    background:
+      linear-gradient(135deg, rgba(13,91,176,0.15) 0%, rgba(13,91,176,0.25) 100%),
+      url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&q=80') center/cover no-repeat;
+    overflow: hidden;
+  }
+  .hero-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    padding: 0 20px;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 58px;
+    font-weight: 500;
+    letter-spacing: -1px;
+    margin-bottom: 36px;
+    text-shadow: 0 2px 18px rgba(0,0,0,0.25);
+    animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    animation: fadeUp 0.9s 0.15s both cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .btn-hero {
+    padding: 12px 32px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid #fff;
+    font-family: inherit;
+  }
+  .btn-hero-primary {
+    background: var(--brand);
+    color: #fff;
+    border-color: var(--brand);
+  }
+  .btn-hero-primary:hover {
+    background: var(--brand-dark);
+    border-color: var(--brand-dark);
+    transform: translateY(-1px);
+  }
+  .btn-hero-secondary {
+    background: transparent;
+    color: #fff;
+  }
+  .btn-hero-secondary:hover {
+    background: rgba(255,255,255,0.12);
+  }
+
+  /* ================ BLUE CONTENT BAND ================ */
+  .band {
+    background: var(--brand);
+    padding: 40px 40px 60px;
+    color: #fff;
+  }
+
+  /* ================ NEWS CAROUSEL ================ */
+  .carousel-wrap {
+    position: relative;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+  .carousel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .news-card {
+    position: relative;
+    height: 290px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .news-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%);
+  }
+  .news-card:hover {
+    transform: translateY(-3px);
+  }
+  .news-card-body {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #fff;
+  }
+  .news-card-title {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+  }
+  .news-card-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .news-card-text {
+    font-size: 12px;
+    line-height: 1.5;
+    opacity: 0.95;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+  }
+  .news-card-btn {
+    align-self: flex-start;
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    padding: 8px 22px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+  }
+  .news-card-btn:hover { background: var(--brand-dark); }
+
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px; height: 36px;
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 3;
+    transition: color 0.2s;
+  }
+  .carousel-arrow:hover { color: #fff; }
+  .carousel-prev { left: -36px; }
+  .carousel-next { right: -36px; }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 22px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .dot.active { background: #fff; }
+
+  /* ================ TILES + LEADERBOARD ================ */
+  .lower {
+    max-width: 1320px;
+    margin: 40px auto 0;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .tile {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .tile:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+  }
+  .tile-img {
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    background-color: #f0f0f0;
+  }
+  .tile-foot {
+    background: var(--brand);
+    color: #fff;
+    text-align: center;
+    padding: 14px 8px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .tile-foot.underline { text-decoration: underline; }
+
+  /* ================ LEADERBOARD ================ */
+  .leaderboard h3 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 18px;
+  }
+  .lb-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+  }
+  .lb-item:last-child { border-bottom: none; }
+  .lb-avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #fff;
+  }
+  .lb-info { flex: 1; min-width: 0; }
+  .lb-name {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .lb-meta {
+    color: rgba(255,255,255,0.75);
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  .lb-points {
+    color: rgba(255,255,255,0.75);
+    font-size: 11px;
+    margin-top: 2px;
+  }
+
+  /* ================ FOOTER ================ */
+  .footer {
+    background: var(--brand-darker);
+    color: rgba(255,255,255,0.85);
+    padding: 40px 40px 24px;
+    margin-top: 0;
+  }
+  .footer-grid {
+    max-width: 1320px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .footer-desc {
+    font-size: 12px;
+    line-height: 1.6;
+    opacity: 0.7;
+  }
+  .footer-col h4 {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 14px;
+  }
+  .footer-col a {
+    display: block;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 12px;
+    padding: 5px 0;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: #fff; }
+  .footer-bottom {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding-top: 18px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ================ MODAL ================ */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 25, 45, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 20px;
+  }
+  .modal-overlay.show { display: flex; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .modal {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    max-width: 480px;
+    width: 100%;
+    padding: 32px 30px;
+    box-shadow: var(--shadow-lg);
+    animation: modalUp 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  @keyframes modalUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .modal-sub {
+    color: var(--grey);
+    font-size: 13px;
+    margin-bottom: 22px;
+  }
+  .modal label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--grey);
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    margin: 14px 0 6px;
+  }
+  .modal input, .modal select {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--ink);
+    transition: border-color 0.2s;
+  }
+  .modal input:focus, .modal select:focus {
+    outline: none;
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(25,118,210,0.12);
+  }
+  .modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+    justify-content: flex-end;
+  }
+  .btn-primary {
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--brand-dark); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--grey);
+    border: 1px solid var(--line);
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--grey); color: var(--ink); }
+
+  /* Booking — flight result rows */
+  .flight-row {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .flight-row:hover {
+    border-color: var(--brand);
+    background: var(--brand-light);
+  }
+  .flight-row.selected {
+    border-color: var(--brand);
+    background: var(--brand-light);
+    box-shadow: 0 0 0 2px var(--brand);
+  }
+  .flight-time {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .flight-route {
+    font-size: 12px;
+    color: var(--grey);
+  }
+  .flight-num {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 2px;
+    letter-spacing: 0.5px;
+  }
+  .flight-price {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--brand-dark);
+  }
+
+  /* Step progress */
+  .stepper {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 22px;
+  }
+  .step {
+    flex: 1;
+    height: 4px;
+    background: var(--line);
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+  .step.done { background: var(--brand); }
+
+  /* ================ TOAST ================ */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--ink);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 300;
+    max-width: 90vw;
+  }
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  .toast-icon {
+    width: 20px; height: 20px;
+    background: var(--success);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: #fff;
+  }
+
+  /* ================ RESPONSIVE ================ */
+  @media (max-width: 1024px) {
+    .lower { grid-template-columns: 1fr; }
+    .nav-links { gap: 20px; }
+    .hero-title { font-size: 42px; }
+  }
+  @media (max-width: 720px) {
+    .nav { padding: 14px 18px; gap: 18px; flex-wrap: wrap; }
+    .nav-links { gap: 14px; font-size: 12px; }
+    .band { padding: 30px 18px 40px; }
+    .carousel { grid-template-columns: 1fr; }
+    .tiles { grid-template-columns: 1fr; }
+    .hero { height: 380px; }
+    .hero-title { font-size: 32px; }
+    .lower { padding: 0 18px; }
+    .footer { padding: 30px 18px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    .modal-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================ TOP NAV ================ -->
+<nav class="nav">
+  <div class="nav-logo">
+    <!-- LOGO PLACEHOLDER: replace this block with <img src="assets/sanderling-logo.png" alt="Sanderling Air"> -->
+    <div class="triangle"></div>
+    <div class="fallback">
+      <div class="fallback-name">Sanderling</div>
+      <div class="fallback-sub">AIR</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a class="nav-link active">Home</a>
+    <a class="nav-link" onclick="openBooking()">Book a Flight <span class="caret">▼</span></a>
+    <a class="nav-link" onclick="openModal('status')">Flight Status &amp; Check-In <span class="caret">▼</span></a>
+  </div>
+  <a class="nav-login" onclick="showToast('Sign in coming soon')">Log in</a>
+</nav>
+
+<!-- ================ HERO ================ -->
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">Book Your Next Trip</h1>
+    <div class="hero-actions">
+      <button class="btn-hero btn-hero-primary" onclick="openModal('manage')">Manage your Booking</button>
+      <button class="btn-hero btn-hero-secondary" onclick="openModal('status')">Check Flight Status</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================ BLUE BAND: NEWS + TILES + LEADERBOARD ================ -->
+<section class="band">
+
+  <!-- News carousel -->
+  <div class="carousel-wrap">
+    <button class="carousel-arrow carousel-prev" onclick="cycleCarousel(-1)">‹</button>
+    <div class="carousel" id="carousel">
+      <div class="news-card" style="background-image: url('https://images.unsplash.com/photo-1542296332-2e4473faf563?w=900&q=80');">
+        <div class="news-card-body">
+          <h3 class="news-card-title">Introducing<br>Dreamliner Routes</h3>
+          <div class="news-card-bottom">
+            <p class="news-card-text">Experience our newest long-haul fleet with expanded cabins and quieter flight.</p>
+            <button class="news-card-btn" onclick="showToast('Learn more — coming soon')">View</button>
+          </div>
+        </div>
+      </div>
+      <div class="news-card" style="background-image: url('https://images.unsplash.com/photo-1583500178690-f7fd39d44888?w=900&q=80');">
+        <div class="news-card-body">
+          <h3 class="news-card-title">New Destinations<br>This Season</h3>
+          <div class="news-card-bottom">
+            <p class="news-card-text">Twelve new routes across Europe, Asia and the Americas opening this quarter.</p>
+            <button class="news-card-btn" onclick="showToast('Destination guide — coming soon')">View</button>
+          </div>
+        </div>
+      </div>
+      <div class="news-card" style="background-image: url('https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=900&q=80');">
+        <div class="news-card-body">
+          <h3 class="news-card-title">Loyalty Programme<br>Tier Refresh</h3>
+          <div class="news-card-bottom">
+            <p class="news-card-text">Enhanced lounge access and priority boarding for Silver and Gold members.</p>
+            <button class="news-card-btn" onclick="showToast('Loyalty details — coming soon')">View</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-arrow carousel-next" onclick="cycleCarousel(1)">›</button>
+    <div class="carousel-dots">
+      <span class="dot"></span>
+      <span class="dot active"></span>
+      <span class="dot"></span>
+    </div>
+  </div>
+
+  <!-- Tiles + leaderboard -->
+  <div class="lower">
+    <div class="tiles">
+      <div class="tile" onclick="openModal('help')">
+        <div class="tile-img" style="background-image: url('https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=600&q=80');"></div>
+        <div class="tile-foot">Get Help</div>
+      </div>
+      <div class="tile" onclick="openModal('topics')">
+        <div class="tile-img" style="background-image: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80');"></div>
+        <div class="tile-foot">Topics</div>
+      </div>
+      <div class="tile" onclick="openModal('discuss')">
+        <div class="tile-img" style="background-image: url('https://images.unsplash.com/photo-1542296332-2e4473faf563?w=600&q=80');"></div>
+        <div class="tile-foot underline">Discuss</div>
+      </div>
+    </div>
+
+    <div class="leaderboard">
+      <h3>Leaderboard</h3>
+      <div class="lb-item">
+        <div class="lb-avatar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <div class="lb-info">
+          <div class="lb-name">Vance Channel</div>
+          <div class="lb-meta">No recent topic activity</div>
+          <div class="lb-points">88 Points</div>
+        </div>
+      </div>
+      <div class="lb-item">
+        <div class="lb-avatar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <div class="lb-info">
+          <div class="lb-name">Sara Errichiello</div>
+          <div class="lb-meta">Last active in: Baggage policy</div>
+          <div class="lb-points">45 Points</div>
+        </div>
+      </div>
+      <div class="lb-item">
+        <div class="lb-avatar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <div class="lb-info">
+          <div class="lb-name">Eliott Forester</div>
+          <div class="lb-meta">Last active in: Loyalty tier</div>
+          <div class="lb-points">32 Points</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ FOOTER ================ -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Sanderling Air</div>
+      <p class="footer-desc">Connecting the world with comfort, care, and confidence since 1986. Fly with us across 80+ destinations on six continents.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Plan &amp; Book</h4>
+      <a>Book a flight</a>
+      <a>Manage booking</a>
+      <a>Check-in online</a>
+      <a>Travel insurance</a>
+    </div>
+    <div class="footer-col">
+      <h4>Travel Info</h4>
+      <a>Baggage policy</a>
+      <a>Visa &amp; passport</a>
+      <a>Special assistance</a>
+      <a>Travel advisories</a>
+    </div>
+    <div class="footer-col">
+      <h4>Loyalty</h4>
+      <a>SanderlingMiles</a>
+      <a>Partner airlines</a>
+      <a>Tier benefits</a>
+      <a>Redeem miles</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Sanderling Air. All rights reserved.</span>
+    <span>Privacy · Cookies · Terms of carriage</span>
+  </div>
+</footer>
+
+<!-- ================ MODAL: BOOK A FLIGHT (multi-step) ================ -->
+<div class="modal-overlay" id="modal-booking" onclick="if(event.target===this)closeModal('booking')">
+  <div class="modal">
+    <div class="stepper">
+      <div class="step done" id="step1"></div>
+      <div class="step" id="step2"></div>
+      <div class="step" id="step3"></div>
+    </div>
+
+    <!-- STEP 1: search -->
+    <div id="bookingStep1">
+      <div class="modal-title">Book a Flight</div>
+      <div class="modal-sub">Search for available flights across our network.</div>
+
+      <div class="modal-row">
+        <div>
+          <label>From</label>
+          <select id="fromCity">
+            <option>London Heathrow (LHR)</option>
+            <option>Dubai (DXB)</option>
+            <option>New York (JFK)</option>
+            <option>Singapore (SIN)</option>
+            <option>Paris (CDG)</option>
+          </select>
+        </div>
+        <div>
+          <label>To</label>
+          <select id="toCity">
+            <option>Dubai (DXB)</option>
+            <option>London Heathrow (LHR)</option>
+            <option>Tokyo Haneda (HND)</option>
+            <option>Sydney (SYD)</option>
+            <option>Cape Town (CPT)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-row">
+        <div>
+          <label>Departure</label>
+          <input type="date" id="depDate" />
+        </div>
+        <div>
+          <label>Return</label>
+          <input type="date" id="retDate" />
+        </div>
+      </div>
+
+      <div class="modal-row">
+        <div>
+          <label>Passengers</label>
+          <select id="paxCount">
+            <option>1 Adult</option>
+            <option>2 Adults</option>
+            <option>2 Adults, 1 Child</option>
+            <option>2 Adults, 2 Children</option>
+          </select>
+        </div>
+        <div>
+          <label>Cabin</label>
+          <select id="cabin">
+            <option>Economy</option>
+            <option>Premium Economy</option>
+            <option>Business</option>
+            <option>First</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-ghost" onclick="closeModal('booking')">Cancel</button>
+        <button class="btn-primary" onclick="goToStep(2)">Search Flights</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: select flight -->
+    <div id="bookingStep2" style="display:none;">
+      <div class="modal-title">Select Your Flight</div>
+      <div class="modal-sub" id="routeSummary">London → Dubai · 1 Adult · Economy</div>
+
+      <div class="flight-row" onclick="selectFlight(this, 'SA014', 489)">
+        <div>
+          <div class="flight-time">07:25</div>
+          <div class="flight-num">SA 014</div>
+        </div>
+        <div>
+          <div class="flight-route">Direct · 7h 10m</div>
+          <div class="flight-num">Boeing 787-9 Dreamliner</div>
+        </div>
+        <div class="flight-price">£489</div>
+      </div>
+
+      <div class="flight-row" onclick="selectFlight(this, 'SA122', 542)">
+        <div>
+          <div class="flight-time">14:50</div>
+          <div class="flight-num">SA 122</div>
+        </div>
+        <div>
+          <div class="flight-route">Direct · 7h 05m</div>
+          <div class="flight-num">Airbus A350-900</div>
+        </div>
+        <div class="flight-price">£542</div>
+      </div>
+
+      <div class="flight-row" onclick="selectFlight(this, 'SA208', 459)">
+        <div>
+          <div class="flight-time">22:10</div>
+          <div class="flight-num">SA 208</div>
+        </div>
+        <div>
+          <div class="flight-route">Direct · 7h 15m</div>
+          <div class="flight-num">Boeing 787-9 Dreamliner</div>
+        </div>
+        <div class="flight-price">£459</div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-ghost" onclick="goToStep(1)">Back</button>
+        <button class="btn-primary" id="step2Continue" onclick="goToStep(3)" disabled style="opacity:0.5;cursor:not-allowed;">Continue</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: confirm -->
+    <div id="bookingStep3" style="display:none;">
+      <div class="modal-title">Confirm Your Booking</div>
+      <div class="modal-sub">Please review your selection before proceeding to payment.</div>
+
+      <div style="background:var(--bg-soft);border-radius:8px;padding:18px;margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;">
+          <span style="color:var(--grey);">Flight</span>
+          <span id="confFlight" style="font-weight:500;">—</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;">
+          <span style="color:var(--grey);">Route</span>
+          <span id="confRoute" style="font-weight:500;">—</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;">
+          <span style="color:var(--grey);">Date</span>
+          <span id="confDate" style="font-weight:500;">—</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;">
+          <span style="color:var(--grey);">Cabin</span>
+          <span id="confCabin" style="font-weight:500;">—</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:10px 0 4px;border-top:1px solid var(--line);margin-top:6px;">
+          <span style="font-weight:600;">Total</span>
+          <span id="confPrice" style="font-weight:600;font-size:18px;color:var(--brand-dark);">—</span>
+        </div>
+      </div>
+
+      <label>Lead passenger email</label>
+      <input type="email" id="paxEmail" placeholder="you@example.com" />
+
+      <div class="modal-actions">
+        <button class="btn-ghost" onclick="goToStep(2)">Back</button>
+        <button class="btn-primary" onclick="confirmBooking()">Confirm &amp; Pay</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================ MODAL: Manage Booking ================ -->
+<div class="modal-overlay" id="modal-manage" onclick="if(event.target===this)closeModal('manage')">
+  <div class="modal">
+    <div class="modal-title">Manage your Booking</div>
+    <div class="modal-sub">Enter your reference to view or change an existing booking.</div>
+
+    <label>Booking reference</label>
+    <input type="text" placeholder="e.g. SAQ7X9" maxlength="6" style="text-transform:uppercase;" />
+
+    <label>Last name</label>
+    <input type="text" placeholder="As shown on your booking" />
+
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal('manage')">Cancel</button>
+      <button class="btn-primary" onclick="closeModal('manage');showToast('Booking lookup — demo only')">Find Booking</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================ MODAL: Flight Status ================ -->
+<div class="modal-overlay" id="modal-status" onclick="if(event.target===this)closeModal('status')">
+  <div class="modal">
+    <div class="modal-title">Check Flight Status</div>
+    <div class="modal-sub">Track arrivals, departures and gate information.</div>
+
+    <label>Flight number</label>
+    <input type="text" placeholder="e.g. SA014" />
+
+    <label>Date</label>
+    <input type="date" id="statusDate" />
+
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal('status')">Cancel</button>
+      <button class="btn-primary" onclick="closeModal('status');showToast('SA 014 · On time · Gate B22')">Check Status</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================ MODAL: Get Help ================ -->
+<div class="modal-overlay" id="modal-help" onclick="if(event.target===this)closeModal('help')">
+  <div class="modal">
+    <div class="modal-title">Get Help</div>
+    <div class="modal-sub">Our support team is here 24/7.</div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;margin:8px 0 6px;">
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line-soft);font-size:13px;">
+        <span style="color:var(--grey);">Reservations</span><span style="font-weight:500;">+44 20 7946 0118</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line-soft);font-size:13px;">
+        <span style="color:var(--grey);">Baggage enquiries</span><span style="font-weight:500;">+44 20 7946 0119</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line-soft);font-size:13px;">
+        <span style="color:var(--grey);">Loyalty programme</span><span style="font-weight:500;">+44 20 7946 0120</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0;font-size:13px;">
+        <span style="color:var(--grey);">Email</span><span style="font-weight:500;">help@sanderlingair.com</span>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal('help')">Close</button>
+      <button class="btn-primary" onclick="closeModal('help');showToast('Connecting you to an agent…')">Start chat</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================ MODAL: Topics ================ -->
+<div class="modal-overlay" id="modal-topics" onclick="if(event.target===this)closeModal('topics')">
+  <div class="modal">
+    <div class="modal-title">Popular Topics</div>
+    <div class="modal-sub">Quick answers to the most common traveller questions.</div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <a style="padding:14px;border:1px solid var(--line);border-radius:8px;text-decoration:none;color:var(--ink);font-size:13px;cursor:pointer;" onclick="showToast('Baggage policy article')">› Baggage allowance &amp; restrictions</a>
+      <a style="padding:14px;border:1px solid var(--line);border-radius:8px;text-decoration:none;color:var(--ink);font-size:13px;cursor:pointer;" onclick="showToast('Check-in article')">› Online check-in &amp; boarding passes</a>
+      <a style="padding:14px;border:1px solid var(--line);border-radius:8px;text-decoration:none;color:var(--ink);font-size:13px;cursor:pointer;" onclick="showToast('Refund policy article')">› Refunds, changes &amp; cancellations</a>
+      <a style="padding:14px;border:1px solid var(--line);border-radius:8px;text-decoration:none;color:var(--ink);font-size:13px;cursor:pointer;" onclick="showToast('Special assistance article')">› Travelling with children or pets</a>
+      <a style="padding:14px;border:1px solid var(--line);border-radius:8px;text-decoration:none;color:var(--ink);font-size:13px;cursor:pointer;" onclick="showToast('Loyalty article')">› SanderlingMiles loyalty programme</a>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal('topics')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================ MODAL: Discuss ================ -->
+<div class="modal-overlay" id="modal-discuss" onclick="if(event.target===this)closeModal('discuss')">
+  <div class="modal">
+    <div class="modal-title">Community Discussions</div>
+    <div class="modal-sub">Join conversations with fellow travellers and our staff.</div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="padding:14px;border:1px solid var(--line);border-radius:8px;">
+        <div style="font-weight:500;font-size:13px;margin-bottom:4px;">Best seats on the 787-9</div>
+        <div style="font-size:11px;color:var(--grey);">Started by Vance Channel · 18 replies · 2 days ago</div>
+      </div>
+      <div style="padding:14px;border:1px solid var(--line);border-radius:8px;">
+        <div style="font-weight:500;font-size:13px;margin-bottom:4px;">Connecting through DXB — minimum time?</div>
+        <div style="font-size:11px;color:var(--grey);">Started by Sara Errichiello · 11 replies · 5 days ago</div>
+      </div>
+      <div style="padding:14px;border:1px solid var(--line);border-radius:8px;">
+        <div style="font-weight:500;font-size:13px;margin-bottom:4px;">Earning Silver status fastest route</div>
+        <div style="font-size:11px;color:var(--grey);">Started by Eliott Forester · 7 replies · 1 week ago</div>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal('discuss')">Close</button>
+      <button class="btn-primary" onclick="closeModal('discuss');showToast('New thread — demo only')">Start a Thread</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================ TOAST ================ -->
+<div class="toast" id="toast">
+  <div class="toast-icon">✓</div>
+  <div id="toastMsg">Action completed</div>
+</div>
+
+<script>
+  // Set default dates (departure tomorrow, return in 7 days)
+  (function() {
+    var d = new Date();
+    d.setDate(d.getDate() + 1);
+    var dep = d.toISOString().split('T')[0];
+    var depEl = document.getElementById('depDate');
+    if (depEl) depEl.value = dep;
+
+    var r = new Date();
+    r.setDate(r.getDate() + 8);
+    var ret = r.toISOString().split('T')[0];
+    var retEl = document.getElementById('retDate');
+    if (retEl) retEl.value = ret;
+
+    var sdEl = document.getElementById('statusDate');
+    if (sdEl) sdEl.value = dep;
+  })();
+
+  function openModal(id) {
+    document.getElementById('modal-' + id).classList.add('show');
+  }
+  function closeModal(id) {
+    document.getElementById('modal-' + id).classList.remove('show');
+    if (id === 'booking') resetBooking();
+  }
+
+  // Booking flow
+  function openBooking() {
+    resetBooking();
+    openModal('booking');
+  }
+  function resetBooking() {
+    goToStep(1);
+    selectedFlight = null;
+    document.querySelectorAll('.flight-row').forEach(function(r) { r.classList.remove('selected'); });
+    document.getElementById('step2Continue').disabled = true;
+    document.getElementById('step2Continue').style.opacity = '0.5';
+    document.getElementById('step2Continue').style.cursor = 'not-allowed';
+  }
+  function goToStep(n) {
+    ['1','2','3'].forEach(function(i) {
+      document.getElementById('bookingStep' + i).style.display = (i == n ? 'block' : 'none');
+      document.getElementById('step' + i).classList.toggle('done', i <= n);
+    });
+    if (n === 2) {
+      var from = document.getElementById('fromCity').value;
+      var to = document.getElementById('toCity').value;
+      var pax = document.getElementById('paxCount').value;
+      var cab = document.getElementById('cabin').value;
+      document.getElementById('routeSummary').textContent =
+        from.split(' (')[0] + ' → ' + to.split(' (')[0] + ' · ' + pax + ' · ' + cab;
+    }
+    if (n === 3 && selectedFlight) {
+      document.getElementById('confFlight').textContent = selectedFlight.code;
+      document.getElementById('confRoute').textContent =
+        document.getElementById('fromCity').value.split(' (')[0] + ' → ' +
+        document.getElementById('toCity').value.split(' (')[0];
+      document.getElementById('confDate').textContent = document.getElementById('depDate').value;
+      document.getElementById('confCabin').textContent = document.getElementById('cabin').value;
+      document.getElementById('confPrice').textContent = '£' + selectedFlight.price;
+    }
+  }
+
+  var selectedFlight = null;
+  function selectFlight(row, code, price) {
+    document.querySelectorAll('.flight-row').forEach(function(r) { r.classList.remove('selected'); });
+    row.classList.add('selected');
+    selectedFlight = { code: code, price: price };
+    var btn = document.getElementById('step2Continue');
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    btn.style.cursor = 'pointer';
+  }
+
+  function confirmBooking() {
+    closeModal('booking');
+    showToast('Booking confirmed — reference SA' + Math.random().toString(36).substring(2,6).toUpperCase());
+  }
+
+  // Carousel
+  var carouselIndex = 1;
+  function cycleCarousel(dir) {
+    carouselIndex = (carouselIndex + dir + 3) % 3;
+    document.querySelectorAll('.dot').forEach(function(d, i) {
+      d.classList.toggle('active', i === carouselIndex);
+    });
+    var cards = document.querySelectorAll('.news-card');
+    cards.forEach(function(c, i) {
+      c.style.order = ((i - carouselIndex + 3) % 3);
+    });
+  }
+  document.querySelectorAll('.dot').forEach(function(d, i) {
+    d.addEventListener('click', function() {
+      carouselIndex = i - 1;
+      cycleCarousel(1);
+    });
+  });
+
+  // Toast
+  var toastTimer;
+  function showToast(msg) {
+    clearTimeout(toastTimer);
+    document.getElementById('toastMsg').innerHTML = msg;
+    document.getElementById('toast').classList.add('show');
+    toastTimer = setTimeout(function() {
+      document.getElementById('toast').classList.remove('show');
+    }, 3200);
+  }
+</script>
+
+</body>
+</html>
